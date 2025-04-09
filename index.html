@@ -141,7 +141,7 @@
         const olHTML = document.getElementById("listaDeTarefas")
 
         async function baixarTarefas() {
-            var tarefas = await fetch("http://localhost:8080/tarefas")
+            var tarefas = await fetch("https://todolist-qwfq.onrender.com/tarefas")
             var listaDeTarefas = await tarefas.json()
             olHTML.innerHTML = ""
             listaDeTarefas.forEach((tarefa, index) => {
@@ -173,7 +173,7 @@
             let categoria = document.getElementById('categoria').value
 
             if (!tarefa == "") {
-                let req = await fetch("http://localhost:8080/tarefa", {
+                let req = await fetch("https://todolist-qwfq.onrender.com/tarefa", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",  //Especifica que o conteudo é JSON
@@ -194,7 +194,7 @@
         }
 
         async function excluirTarefa(index) {
-            let req = await fetch(`http://localhost:8080/tarefa/${index}`, {
+            let req = await fetch(`https://todolist-qwfq.onrender.com/tarefa/${index}`, {
                 method: "DELETE",
             })
             baixarTarefas()
@@ -204,7 +204,7 @@
 
             var novaTarefa = prompt("Digite o novo nome da tarefa")
 
-            let req = await fetch(`http://localhost:8080/tarefa/${index}`, {
+            let req = await fetch(`https://todolist-qwfq.onrender.com/tarefa/${index}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ tarefa: novaTarefa })
