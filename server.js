@@ -4,7 +4,10 @@ import cors from "cors"
 import sqlite3 from "sqlite3"
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import cron from "node-cron"
+import fetch from "node-fetch";
 
+const url = 'https://todolist-qwfq.onrender.com/tarefas'
 
 const app = express()
 
@@ -59,6 +62,16 @@ app.get('/home', (req, res) => {
     res.sendFile("index.html", {root: __dirname})
 
 })
+
+cron.schedule('*/14 * * * *', async () => {
+    try {
+      const res = await fetch(url);
+      const status = res.status;
+      console.log(`[${new Date().toLocaleTimeString()}] Ping enviado! Status: ${status}`);
+    } catch (error) {
+      console.error(`[${new Date().toLocaleTimeString()}] Erro ao enviar ping:`, error);
+    }
+  });
 
 
 
